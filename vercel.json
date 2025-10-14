@@ -1,0 +1,10 @@
+{
+  "rewrites": [{ "source": "/:path*", "destination": "/no-access.html" }],
+  "headers": [{
+    "source": "/no-access.html",
+    "headers": [
+      { "key": "Cache-Control", "value": "no-store" },
+      { "key": "X-Robots-Tag", "value": "noindex, nofollow" }
+    ]
+  }]
+}
