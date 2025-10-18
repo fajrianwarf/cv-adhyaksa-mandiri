@@ -63,6 +63,7 @@
     body{
       margin:0;
       padding:28px 16px;
+      padding-bottom: 50px;
       background:linear-gradient(180deg,#fefafa 0%,var(--bg) 100%);
       display:flex;
       justify-content:center;
@@ -98,16 +99,18 @@
       width:84px;
       height:84px;
       border-radius:14px;
-      display:grid;            /* center content perfectly */
-      place-items:center;
+      display:flex;            /* center content perfectly */
+      justify-content:center;
+      align-items: center;
       flex-shrink:0;
       overflow:hidden;
       background:#ffffff;
       box-shadow:0 6px 14px rgba(218,36,25,0.06);
       border:1px solid var(--card-border);
-      padding:8px;            /* inner padding so svg doesn't appear cramped */
+      padding: clamp(2px, 0.75vw, 21px);
+      border-radius: clamp(5px, 1vw, 15px);
     }
-    .logo-wrap img { width:100%; height:100%; display:block; object-fit:contain; object-position:center; }
+    .logo-wrap img { width:100%; height:100%;   }
 
     .site-title { display:flex; flex-direction:column; gap:2px; }
     .site-title h1 {
@@ -142,7 +145,8 @@
     .section-title{ margin:0 0 10px 0; color:var(--primary); font-size:15px; }
     .muted { color:var(--muted); font-size:14px; line-height:1.55; }
 
-    ul.service-list{ margin:8px 0 0 18px; color:var(--muted); }
+    /* ul.service-list{ margin:8px 0 0 18px; color:var(--muted); } */
+    ul.service-list{ margin:0; padding-left: 20px; color:var(--muted); }
     ul.service-list li{ margin:8px 0; font-size:14px; }
 
     .meta { font-size:14px; color:#111827; margin-bottom:10px; }
@@ -181,6 +185,7 @@
       transition:opacity .15s ease, transform .15s ease;
       pointer-events:none;
     }
+
     @media (hover:hover){
       .copy-field:hover::after{ opacity:1; transform:translateY(0); }
       .copy-field[data-copied="true"]::after{ content:'Tersalin'; background:#f0fff4; border-color:#b7e4c7; color:#117a37; opacity:1; }
@@ -217,7 +222,15 @@
       position:relative;
       z-index:1;
     }
-    .credit { color: #64748b; display: flex; align-items: center; } /* optional */
+
+    .credit { color: #64748b; display: flex; align-items: center; gap:.5rem; }
+
+    /* no-break without &nbsp; */
+    .nowrap{ white-space: nowrap; }
+
+    /* clean spacing + auto colon */
+    .credit-label::after{ content: ":"; margin-left:.25ch; }
+
     .credit-link {
       display: inline-flex;
       align-items: center;
@@ -366,7 +379,6 @@
 
 
 
-
     /* Responsive */
     @media (max-width:880px){
       header.site-header{ gap:10px; padding:16px; }
@@ -376,6 +388,11 @@
       .column-aside { flex:0 0 auto; max-width:none; }
       footer.site-footer { padding:10px 12px; }
       .whatsapp-float { right:12px; bottom:12px; width:52px; height:52px; }
+    }
+
+    /* Tiny visual nudge so baselines align better on very narrow screens */
+    @media (max-width: 500px){
+      .logo-wrap {margin: 0 10px 0 0;}
     }
 
     @media print {
@@ -526,8 +543,9 @@
 
     <footer class="site-footer" role="contentinfo">
       <small>CV ADHYAKSA MANDIRI — Jl. Kebonharjo RT 05 RW 02, Semarang Utara</small>
-      <small class="credit">
-        Created by: &nbsp;<a class="credit-link icon-linkedin" href="https://linkedin.com/in/fajrianwarf/" target="_blank"
+      <small class="credit nowrap">
+        <span class="credit-label">Created by</span>
+        <a class="credit-link icon-linkedin" href="https://linkedin.com/in/fajrianwarf/" target="_blank"
           rel="noopener noreferrer">
           <!-- LinkedIn icon -->
           <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
